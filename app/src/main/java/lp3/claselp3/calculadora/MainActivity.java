@@ -10,9 +10,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import org.mariuszgromada.math.mxparser.Expression;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
+
 public class MainActivity extends AppCompatActivity {
 
     public String texto;
+    TextView textoResultado;
+    TextView textoResultadoOp;
+
 
 
     @Override
@@ -22,16 +32,16 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         texto = "";
+        textoResultado = (TextView) findViewById(R.id.textView);
+        textoResultadoOp = (TextView) findViewById(R.id.resultado);
+
+
+        //script engine
+
+
+
     }
 
     @Override
@@ -56,21 +66,66 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setTexto(CharSequence numero){
-        TextView textoResultado = (TextView)findViewById(R.id.textView);
-        textoResultado.setText(""+numero);
-    }
-    public CharSequence getTexto(){
-        TextView textoResultado = (TextView)findViewById(R.id.textView);
-        return textoResultado.getText();
+    public void setTexto(CharSequence numero) {
+
     }
 
 
-    public void btn1(View vista){
-        setTexto("1");
+    public void crearString(View vista) {
+
+        if(vista.getId()==R.id.btn0){
+            textoResultado.setText(textoResultado.getText()+""+0);
+        }else if(vista.getId()==R.id.button1){
+            textoResultado.setText(textoResultado.getText()+""+1);
+        }else if(vista.getId()==R.id.button2){
+            textoResultado.setText(textoResultado.getText()+""+2);
+        }else if(vista.getId()==R.id.button3){
+            textoResultado.setText(textoResultado.getText()+""+3);
+        }else if(vista.getId()==R.id.button4){
+            textoResultado.setText(textoResultado.getText()+""+4);
+        }else if(vista.getId()==R.id.button5){
+            textoResultado.setText(textoResultado.getText()+""+5);
+        }else if(vista.getId()==R.id.button6){
+            textoResultado.setText(textoResultado.getText()+""+6);
+        }else if(vista.getId()==R.id.button7){
+            textoResultado.setText(textoResultado.getText()+""+7);
+        }else if(vista.getId()==R.id.button7){
+            textoResultado.setText(textoResultado.getText()+""+8);
+        }else if(vista.getId()==R.id.button9){
+            textoResultado.setText(textoResultado.getText()+""+9);
+        }else if(vista.getId()==R.id.suma){
+            textoResultado.setText(textoResultado.getText()+""+"+");
+        }else if(vista.getId()==R.id.resta){
+            textoResultado.setText(textoResultado.getText()+""+"-");
+        }else if(vista.getId()==R.id.mul){
+            textoResultado.setText(textoResultado.getText()+""+"*");
+        }else if(vista.getId()==R.id.divide){
+            textoResultado.setText(textoResultado.getText()+""+"/");
+        }
+
+
+
+
     }
 
-    public void btnSum(View vista){
-        setTexto(getTexto()+"+");
+    public void operacion(View vista){
+        String op=textoResultado.getText().toString();
+//        ScriptEngineManager mgr = new ScriptEngineManager();
+//        ScriptEngine scriptEngine = mgr.getEngineByName("JavaScript");
+//        String expression = "12+5-1";
+        System.out.println(op);
+        String n = op;
+        Expression e = new Expression(n);
+        double v = e.calculate();
+        System.out.println(v);
+        System.out.println(v);
+        //textoResultadoOp.setText(""+op);
+        textoResultadoOp.setText(""+v);
     }
+
+    public void restart(View vista){
+        textoResultado.setText("");
+        textoResultadoOp.setText("");
+    }
+
 }
